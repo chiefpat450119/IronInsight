@@ -1,12 +1,16 @@
-# Some pun on *"racket"* or something
+# *IronInsight*
 
-## Turn-based tennis game
+## Strength training personal benchmark/progress tracker
 
 **Project Description**:
-- This application will be a turn-based tennis game where the player competes against the computer.
-In each turn, the player will choose an action in an attempt to prevent the computer from returning
-the ball. 
-- The project can be used by anyone but is specifically targeted towards tennis/sports enthusiasts.
-- This project is of interest to me baecause I am an avid tennis player and tennis *enjoyer*
-
-An example of text with **bold** and *italic* fonts.  
+- This application will be a strength training tracking system. 
+Users 
+- The application can be used by gym-goers of with any level of experience, but is specifically 
+targeted towards those who are serious about long-term strength goals.
+- This project is of interest to me because I am an avid fitness enthusiast and gym *enjoyer*
+ 
+**User Stories**:
+- As a user, I want to be able to add a training target to my goals, or a personal best to my record.
+- As a user, I want to be able to view my personal-best progress over time.
+- As a user, I want to be able to calculate my strength level based on the weight I am currently training with.
+- As a user, I want to be able to compare my progress between different exercises.
