@@ -16,6 +16,11 @@ public class PersonalBest extends Record {
         this.pbWeight = weight;
     }
 
+    @Override
+    public String summary() {
+        return null;
+    }
+
     public double getPbWeight() {
         return pbWeight;
     }

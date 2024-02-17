@@ -11,6 +11,7 @@ targeted towards those who are serious about long-term strength goals.
  
 **User Stories**:
 - As a user, I want to be able to add a training target to my goals, or a personal best to my record.
-- As a user, I want to be able to view my personal-best progress over time.
-- As a user, I want to be able to calculate my strength level based on the weight I am currently training with.
-- As a user, I want to be able to compare my progress between different exercises.
+- As a user, I want to be able to record my progress on any exercise.
+- As a user, I want to be able to get a summary of my progress over time.
+- As a user, I want to be able to calculate my 1-repetition maximum based on the weight I am currently training with.
+- As a user, I want to be able to mark a goal as completed.
