@@ -101,66 +101,66 @@ public class TrainingLogger {
         logs.add(goal);
     }
 
+    // MODIFIES: this
+    // EFFECTS: Adds either a personal best entry or a regular training log entry to logs list
+    // based on user inputs.
     private void addLogEntry() {
         Record entry;
         System.out.println("Enter a name for your entry");
         String logName = input.next();
-        System.out.println("Is this a personal best record? Y/N");
-        String yn = input.next();
-        boolean isPb;
-        if (yn.equalsIgnoreCase("y")) {
-            isPb = true;
-        } else if (yn.equalsIgnoreCase("n")) {
-            isPb = false;
-        } else {
-            System.out.println("Not a valid input. Please try again.");
-            return;
-        }
-
+        System.out.println("Is this a personal best record? true/false");
+        boolean isPb = Boolean.parseBoolean(input.next());
         if (isPb) {
             System.out.println("Enter your personal best weight:");
             int recordWeight = input.nextInt();
             entry = new PersonalBest(new Date(), logName, recordWeight);
-
         } else {
             entry = new Record(new Date(), logName);
-            System.out.println("Enter your exercise name");
-            String exerciseName = input.next();
-            System.out.println("Enter the amount of weight");
-            int exerciseWeight = input.nextInt();
-            System.out.println("Enter the number of reps performed");
-            int reps = input.nextInt();
-            System.out.println("Enter your rating of perceived exertion (RPE)");
-            int rpe  = input.nextInt();
-            entry.addExercise(new Exercise(exerciseName, exerciseWeight, reps, rpe));
-
             while (true) {
-                System.out.println("Enter 'a' to continue adding exercises or 'c' to complete log entry.");
+                System.out.println("Enter 'a' to add exercises or 'c' to complete log entry.");
                 String command = input.next();
-
                 if (command.equals("c")) {
                     break;
                 } else if (command.equals("a")) {
-                    System.out.println("Enter your exercise name");
-                    exerciseName = input.next();
-                    System.out.println("Enter the amount of weight");
-                    exerciseWeight = input.nextInt();
-                    System.out.println("Enter the number of reps performed");
-                    reps = input.nextInt();
-                    System.out.println("Enter your rating of perceived exertion (RPE)");
-                    rpe  = input.nextInt();
-                    entry.addExercise(new Exercise(exerciseName, exerciseWeight, reps, rpe));
+                    Exercise exercise = createExercise();
+                    entry.addExercise(exercise);
                 } else {
                     System.out.println("Invalid selection. Please try again.");
                 }
-
             }
         }
         logs.add(entry);
     }
 
-    private void markCompleted() {
+    // Helper function for creating exercises
+    // EFFECTS: Returns an exercise based on user specifications.
+    private Exercise createExercise() {
+        System.out.println("Enter your exercise name");
+        String exerciseName = input.next();
+        System.out.println("Enter the amount of weight");
+        int exerciseWeight = input.nextInt();
+        System.out.println("Enter the number of reps performed");
+        int reps = input.nextInt();
+        System.out.println("Enter your rating of perceived exertion (RPE) from 0-10");
+        int rpe  = input.nextInt();
+        return new Exercise(exerciseName, exerciseWeight, reps, rpe);
+    }
 
+    // REQUIRES: logs contains at least one instance of Goal
+    // MODIFIES: this
+    // EFFECTS: Marks a goal as completed as directed by user input
+    private void markCompleted() {
+        System.out.println("Select the goal to mark as completed: ");
+        for (int i = 0; i < logs.size(); i++) {
+            LogEntry g = logs.get(i);
+            if (g instanceof Goal) {
+                System.out.println((i + 1) + ". " + g.getName());
+            }
+        }
+        int index = input.nextInt();
+        Goal g = (Goal) logs.get(index - 1);
+        g.setCompleted();
+        System.out.println("Congratulations! You have successfully completed a goal!");
     }
 
     private void generateSummary() {
