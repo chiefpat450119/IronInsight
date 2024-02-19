@@ -2,8 +2,6 @@ package ui;
 
 import model.*;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.*;
@@ -65,6 +63,8 @@ public class TrainingLogger {
             } catch (DateTimeParseException e) {
                 System.out.println("Invalid date, please try again.");
             }
+        } else if (command.equals("m")) {
+            calculateMax();
         } else {
             System.out.println("Invalid selection. Please try again.");
         }
@@ -85,6 +85,7 @@ public class TrainingLogger {
         System.out.println("\tc -> Mark a goal as completed");
         System.out.println("\ta -> Add a training log entry");
         System.out.println("\tp -> Get progress summary");
+        System.out.println("\tm -> Calculate 1-repetition max");
         System.out.println("\tq -> quit");
     }
 
@@ -117,8 +118,7 @@ public class TrainingLogger {
         boolean isPb = Boolean.parseBoolean(input.next());
         if (isPb) {
             System.out.println("Enter your personal best weight:");
-            int recordWeight = input.nextInt();
-            entry = new PersonalBest(LocalDate.now(), logName, recordWeight);
+            entry = new PersonalBest(LocalDate.now(), logName, input.nextInt());
         } else {
             entry = new Record(LocalDate.now(), logName);
             while (true) {
@@ -127,8 +127,7 @@ public class TrainingLogger {
                 if (command.equals("c")) {
                     break;
                 } else if (command.equals("a")) {
-                    Exercise exercise = createExercise();
-                    entry.addExercise(exercise);
+                    entry.addExercise(createExercise());
                 } else {
                     System.out.println("Invalid selection. Please try again.");
                 }
@@ -137,7 +136,7 @@ public class TrainingLogger {
         logs.add(entry);
     }
 
-    // Helper function for creating exercises
+    // Helper method for creating exercises
     // EFFECTS: Returns an exercise based on user specifications.
     private Exercise createExercise() {
         System.out.println("Enter your exercise name");
@@ -147,7 +146,7 @@ public class TrainingLogger {
         System.out.println("Enter the number of reps performed");
         int reps = input.nextInt();
         System.out.println("Enter your rating of perceived exertion (RPE) from 0-10");
-        int rpe  = input.nextInt();
+        int rpe = input.nextInt();
         return new Exercise(exerciseName, exerciseWeight, reps, rpe);
     }
 
@@ -171,14 +170,28 @@ public class TrainingLogger {
     // REQUIRES: logs is not empty
     // EFFECTS: Prints summary of all logs on given date to the console based on user input
     private void generateSummary() throws DateTimeParseException {
-        System.out.println("Enter the date you want a summary for in the format YYYY-MM-DD");
-        LocalDate summaryDate = LocalDate.parse(input.next());
-        for (LogEntry e: logs) {
-            if (e.getDate().isEqual(summaryDate)) {
+        System.out.println("Enter the date you want a summary for in the format YYYY-MM-DD "
+                + "or 'all' to view all records");
+        String cmd = input.next();
+        if (cmd.equalsIgnoreCase("all")) {
+            for (LogEntry e : logs) {
                 System.out.println(e.summary());
+            }
+        } else {
+            LocalDate summaryDate = LocalDate.parse(cmd);
+            for (LogEntry e : logs) {
+                if (e.getDate().isEqual(summaryDate)) {
+                    System.out.println(e.summary());
+                }
             }
         }
     }
 
-    // TODO: Add calculate max
+    // EFFECTS: Prints out the calculated 1-repetition maximum weight based on user input
+    private void calculateMax() {
+        System.out.println("Enter your weight and reps");
+        int weight = input.nextInt();
+        int reps = input.nextInt();
+        System.out.print("Your 1-rep max is: " + Math.round(weight / (1.0278 - 0.0278 * reps)));
+    }
 }

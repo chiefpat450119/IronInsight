@@ -1,7 +1,6 @@
 package model;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 // A log entry representing a strength target with a list of exercises
 public class Goal extends Record {
