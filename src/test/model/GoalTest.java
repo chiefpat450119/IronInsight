@@ -50,9 +50,9 @@ public class GoalTest {
 
     @Test
     public void testSummary() {
-        assertEquals("Incomplete goal, a goal", g1.summary());
+        assertEquals("Incomplete goal goal, a goal", g1.summary());
         g2.setCompleted();
-        assertEquals("Completed goal 2, different goal", g2.summary());
+        assertEquals("Completed goal goal 2, different goal", g2.summary());
     }
 
     @Test
