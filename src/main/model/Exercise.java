@@ -1,6 +1,7 @@
 package model;
 
-// Represents a set of a strength training exercise with a weight and number of repetitions
+// Represents a set of a strength training exercise with a weight and number of repetitions,
+// as well as name and rating of perceived exertion.
 public class Exercise {
     private String name;
     private int reps;

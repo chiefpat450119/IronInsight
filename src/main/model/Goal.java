@@ -2,7 +2,8 @@ package model;
 
 import java.time.LocalDate;
 
-// A log entry representing a strength target with a list of exercises
+// A log entry representing a strength target with target date a list of exercises, can be marked completed.
+// Has a name, date and description.
 public class Goal extends Record {
     private LocalDate targetDate;
     private String description;
@@ -12,7 +13,7 @@ public class Goal extends Record {
     // EFFECTS: Instantiates a Goal with given date and name, not completed
     public Goal(LocalDate date, String name, String description) {
         super(date, name);
-        this.name = name + " goal set on " + date.toString();
+        this.name = name;
         this.description = description;
         this.completed = false;
     }
