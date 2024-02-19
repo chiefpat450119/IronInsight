@@ -32,9 +32,9 @@ public class Goal extends Record {
     public String summary() {
         String prefix;
         if (completed) {
-            prefix = "Completed ";
+            prefix = "Completed goal ";
         } else {
-            prefix = "Incomplete ";
+            prefix = "Incomplete goal ";
         }
         return prefix + name + ", " + description;
     }
