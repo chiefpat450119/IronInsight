@@ -1,6 +1,6 @@
 package model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 // A log entry of a personal best weight for just one exercise
 public class PersonalBest extends Record {
@@ -9,16 +9,17 @@ public class PersonalBest extends Record {
 
     // REQUIRES: name is not empty, weight >= 0
     // EFFECTS: Instantiates a personal best log entry with given record weight and exercise name.
-    public PersonalBest(Date date, String name, int weight) {
-        super(date, name + " PB");
+    public PersonalBest(LocalDate date, String name, int weight) {
+        super(date, name);
         this.exercises.add(new Exercise(name, weight, 1, 10));
         this.exerciseName = name;
         this.pbWeight = weight;
     }
 
+    // EFFECTS: returns a string summary of the personal best
     @Override
     public String summary() {
-        return null;
+        return "PB on " + exerciseName + " of " + pbWeight + " lbs";
     }
 
     public double getPbWeight() {

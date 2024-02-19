@@ -16,14 +16,14 @@ public class Exercise {
         this.rpe = rpe;
     }
 
-    // EFFECTS: Returns the calculated 1-rep max based on weight and reps
+    // EFFECTS: Returns the calculated 1-repetition maximum for the exercise based on weight and reps
     public double calculateMax() {
         return weight / (1.0278 - 0.0278 * reps);
     }
 
-    // EFFECTS: returns a summary of the set
+    // EFFECTS: returns a summary of the exercise set
     public String summary() {
-        return null;
+        return reps + " reps of " + weight + " lbs on " + name + " at " + rpe + " RPE";
     }
 
     public String getName() {

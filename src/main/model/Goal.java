@@ -1,17 +1,17 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 // A log entry representing a strength target with a list of exercises
 public class Goal extends Record {
-    private Date targetDate;
-    private int targetWeight;
+    private LocalDate targetDate;
     private String description;
     private boolean completed;
 
     // REQUIRES: name is not empty
     // EFFECTS: Instantiates a Goal with given date and name, not completed
-    public Goal(Date date, String name, String description) {
+    public Goal(LocalDate date, String name, String description) {
         super(date, name);
         this.name = name + " goal set on " + date.toString();
         this.description = description;
@@ -22,7 +22,7 @@ public class Goal extends Record {
     // MODIFIES: this
     // EFFECTS: Modifies the goal by setting the date to achieve and the target weight on exercise
     // with given name.
-    public void addTarget(Date targetDate, int targetWeight, String exerciseName) {
+    public void addTarget(LocalDate targetDate, int targetWeight, String exerciseName) {
         this.targetDate = targetDate;
         addExercise(new Exercise(exerciseName, targetWeight, 1, 10));
     }
@@ -30,7 +30,13 @@ public class Goal extends Record {
     // EFFECTS: returns a string summary of the goal
     @Override
     public String summary() {
-        return null; // TODO: Implement
+        String prefix;
+        if (completed) {
+            prefix = "Completed ";
+        } else {
+            prefix = "Incomplete ";
+        }
+        return prefix + name + ", " + description;
     }
 
     // MODIFIES: this
@@ -43,12 +49,8 @@ public class Goal extends Record {
         return completed;
     }
 
-    public Date getTargetDate() {
+    public LocalDate getTargetDate() {
         return targetDate;
-    }
-
-    public int getTargetWeight() {
-        return targetWeight;
     }
 
     public String getDescription() {

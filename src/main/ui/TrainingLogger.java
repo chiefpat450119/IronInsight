@@ -4,10 +4,13 @@ import model.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 // A strength training log, with a list of log entries of various types.
 // Logs can be accessed or summaries generated based on user input.
+// ATTRIBUTION: Structure of this class and the user input implementation are sourced from the TellerApp project.
 public class TrainingLogger {
     private ArrayList<LogEntry> logs;
     private Scanner input;
@@ -20,7 +23,7 @@ public class TrainingLogger {
     // MODIFIES: this
     // EFFECTS: processes user input
     private void runLogger() {
-        String command = null;
+        String command;
 
         init();
 
@@ -49,7 +52,7 @@ public class TrainingLogger {
         if (command.equals("g")) {
             try {
                 addGoal();
-            } catch (ParseException e) {
+            } catch (DateTimeParseException e) {
                 System.out.println("Invalid date, please try again.");
             }
         } else if (command.equals("c")) {
@@ -57,7 +60,11 @@ public class TrainingLogger {
         } else if (command.equals("a")) {
             addLogEntry();
         } else if (command.equals("p")) {
-            generateSummary();
+            try {
+                generateSummary();
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date, please try again.");
+            }
         } else {
             System.out.println("Invalid selection. Please try again.");
         }
@@ -83,20 +90,18 @@ public class TrainingLogger {
 
     // MODIFIES: this
     // EFFECTS: Adds a goal to the logs list based on user inputs
-    private void addGoal() throws ParseException {
+    private void addGoal() throws DateTimeParseException {
         System.out.println("Enter a name for your goal");
         String goalName = input.next();
         System.out.println("Enter your target completion date in the format YYYY-MM-DD");
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-        String dateString = input.next();
-        Date goalDate = formatter.parse(dateString);
+        LocalDate goalDate = LocalDate.parse(input.next());
         System.out.println("Enter your exercise name");
         String exerciseName = input.next();
         System.out.println("Enter your target weight");
         int weight = input.nextInt();
         System.out.println("Enter a brief description for your goal");
         String description = input.next();
-        Goal goal = new Goal(new Date(), goalName, description);
+        Goal goal = new Goal(LocalDate.now(), goalName, description);
         goal.addTarget(goalDate, weight, exerciseName);
         logs.add(goal);
     }
@@ -113,9 +118,9 @@ public class TrainingLogger {
         if (isPb) {
             System.out.println("Enter your personal best weight:");
             int recordWeight = input.nextInt();
-            entry = new PersonalBest(new Date(), logName, recordWeight);
+            entry = new PersonalBest(LocalDate.now(), logName, recordWeight);
         } else {
-            entry = new Record(new Date(), logName);
+            entry = new Record(LocalDate.now(), logName);
             while (true) {
                 System.out.println("Enter 'a' to add exercises or 'c' to complete log entry.");
                 String command = input.next();
@@ -163,7 +168,17 @@ public class TrainingLogger {
         System.out.println("Congratulations! You have successfully completed a goal!");
     }
 
-    private void generateSummary() {
-
+    // REQUIRES: logs is not empty
+    // EFFECTS: Prints summary of all logs on given date to the console based on user input
+    private void generateSummary() throws DateTimeParseException {
+        System.out.println("Enter the date you want a summary for in the format YYYY-MM-DD");
+        LocalDate summaryDate = LocalDate.parse(input.next());
+        for (LogEntry e: logs) {
+            if (e.getDate().isEqual(summaryDate)) {
+                System.out.println(e.summary());
+            }
+        }
     }
+
+    // TODO: Add calculate max
 }

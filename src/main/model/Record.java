@@ -1,7 +1,7 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 // A log entry representing a record of a singular training session with a list of exercises.
 public class Record extends LogEntry {
@@ -9,19 +9,9 @@ public class Record extends LogEntry {
 
     // REQUIRES: name is not empty
     // EFFECTS: Instantiates a strength training log entry with empty list of exercises
-    public Record(Date date, String name) {
-        super(date, name +  " " + date.toString());
+    public Record(LocalDate date, String name) {
+        super(date, name);
         this.exercises = new ArrayList<Exercise>();
-    }
-
-    // EFFECTS: Returns the calculated maximum weight for a given exercise, or -1 if not found.
-    public double getMaxWeight(String exerciseName) {
-        for (Exercise e: exercises) {
-            if (exerciseName.equals(e.getName())) {
-                return e.calculateMax();
-            }
-        }
-        return -1;
     }
 
     // REQUIRES: Exercise is not already in exercises
@@ -31,13 +21,16 @@ public class Record extends LogEntry {
         exercises.add(e);
     }
 
-    // EFFECTS: returns a string summary of the log entry
+    // EFFECTS: returns a string summary of the log entry with exercise summaries.
     @Override
     public String summary() {
-        return null;
-    }
-
-    public String getSummary() {
-        return null;
+        // TODO: Summarise all exercises in a list and add it to the return
+        String summary = name + " on " + date.toString() + " with " + exercises.size() + " exercises:";
+        for (Exercise e: exercises) {
+            String newLine = System.getProperty("line.separator");
+            summary = summary.concat(newLine);
+            summary = summary.concat(e.summary());
+        }
+        return summary;
     }
 }
