@@ -1,8 +1,11 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a set of a strength training exercise with a weight and number of repetitions,
 // as well as name and rating of perceived exertion.
-public class Exercise {
+public class Exercise implements Writable {
     private String name;
     private int reps;
     private int rpe;
@@ -20,6 +23,16 @@ public class Exercise {
     // EFFECTS: returns a summary of the exercise set
     public String summary() {
         return reps + " reps of " + weight + " lbs on " + name + " at RPE " + rpe;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("weight", weight);
+        json.put("reps", reps);
+        json.put("rpe", rpe);
+        return json;
     }
 
     public String getName() {

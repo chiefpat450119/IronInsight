@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 import java.time.LocalDate;
 
 // A log entry representing a strength target with target date a list of exercises, can be marked completed.
@@ -13,7 +15,6 @@ public class Goal extends Record {
     // EFFECTS: Instantiates a Goal with given date and name, not completed
     public Goal(LocalDate date, String name, String description) {
         super(date, name);
-        this.name = name;
         this.description = description;
         this.completed = false;
     }
@@ -43,6 +44,15 @@ public class Goal extends Record {
     // EFFECTS: sets completed to true
     public void setCompleted() {
         completed = true;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = super.toJson();
+        json.put("description", description);
+        json.put("target date", targetDate);
+        json.put("completed", completed);
+        return json;
     }
 
     public boolean isCompleted() {

@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -31,6 +34,24 @@ public class Record extends LogEntry {
             summary = summary.concat(e.summary());
         }
         return summary;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = super.toJson();
+        json.put("exercises", exercisesToJson());
+        return json;
+    }
+
+    // EFFECTS: returns exercises in this record as a JSON array.
+    protected JSONArray exercisesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Exercise e: exercises) {
+            jsonArray.put(e.toJson());
+        }
+
+        return jsonArray;
     }
 
     public ArrayList<Exercise> getExercises() {
