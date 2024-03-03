@@ -17,14 +17,13 @@ import java.io.IOException;
 // A strength training log, with a list of log entries of various types.
 // Logs can be accessed or summaries generated based on user input.
 // ATTRIBUTION: Structure of this class and the user input implementation are sourced from the TellerApp project.
+// Data persistence implementation is based on JsonSerializationDemo.
 public class TrainingLogger implements Writable {
     private static final String JSON_STORE = "./data/logs.json";
-    private ArrayList<LogEntry> logs;
+    private List<LogEntry> logs;
     private Scanner input;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
-
-    // TODO: Implement loading and saving
 
     // EFFECTS: Runs the logger application
     public TrainingLogger() {
@@ -53,33 +52,32 @@ public class TrainingLogger implements Writable {
             }
 
         }
-
         System.out.print("Bye! Thanks for using IronInsight");
     }
 
     // MODIFIES: this
     // EFFECTS: Processes the user's input at the main menu
     private void processCommand(String command) {
-        if (command.equals("g")) {
-            try {
+        try {
+            if (command.equals("g")) {
                 addGoal();
-            } catch (DateTimeParseException e) {
-                System.out.println("Invalid date, please try again.");
-            }
-        } else if (command.equals("c")) {
-            markCompleted();
-        } else if (command.equals("a")) {
-            addLogEntry();
-        } else if (command.equals("p")) {
-            try {
+            } else if (command.equals("c")) {
+                markCompleted();
+            } else if (command.equals("a")) {
+                addLogEntry();
+            } else if (command.equals("p")) {
                 generateSummary();
-            } catch (DateTimeParseException e) {
-                System.out.println("Invalid date, please try again.");
+            } else if (command.equals("m")) {
+                calculateMax();
+            } else if (command.equals("s")) {
+                saveLogger();
+            } else if (command.equals("l")) {
+                loadLogger();
+            } else {
+                System.out.println("Invalid selection. Please try again.");
             }
-        } else if (command.equals("m")) {
-            calculateMax();
-        } else {
-            System.out.println("Invalid selection. Please try again.");
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid date, please try again.");
         }
     }
 
@@ -101,6 +99,8 @@ public class TrainingLogger implements Writable {
         System.out.println("\ta -> Add a training log entry");
         System.out.println("\tp -> Get progress summary");
         System.out.println("\tm -> Calculate 1-repetition max");
+        System.out.println("\ts -> Save logs to file");
+        System.out.println("\tl -> Load logs from file");
         System.out.println("\tq -> quit");
     }
 
@@ -226,5 +226,28 @@ public class TrainingLogger implements Writable {
         }
 
         return jsonArray;
+    }
+
+    // EFFECTS: saves the workroom to file
+    private void saveLogger() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(this);
+            jsonWriter.close();
+            System.out.println("Saved training logs to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads workroom from file
+    private void loadLogger() {
+        try {
+            this.logs = jsonReader.read();
+            System.out.println("Loaded training logs from " + JSON_STORE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

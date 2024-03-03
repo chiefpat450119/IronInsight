@@ -13,6 +13,7 @@ import model.*;
 import org.json.*;
 
 // Represents a reader that reads a training logger from JSON data stored in file
+// Data persistence implementation is based on JsonSerializationDemo.
 public class JsonReader {
     private String source;
 
@@ -88,7 +89,7 @@ public class JsonReader {
     // EFFECTS: parses goal from JSON object with given name and date and returns it
     private Goal createGoal(JSONObject jsonObject, String name, LocalDate date, List<Exercise> exercises) {
         String description = jsonObject.getString("description");
-        LocalDate targetDate = LocalDate.parse(jsonObject.getString("description"));
+        LocalDate targetDate = LocalDate.parse(jsonObject.getString("target date"));
         boolean completed = jsonObject.getBoolean("completed");
 
         Goal goal = new Goal(date, name, description);
