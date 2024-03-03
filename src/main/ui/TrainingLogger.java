@@ -228,7 +228,7 @@ public class TrainingLogger implements Writable {
         return jsonArray;
     }
 
-    // EFFECTS: saves the workroom to file
+    // EFFECTS: saves the training logs to file
     private void saveLogger() {
         try {
             jsonWriter.open();
@@ -241,7 +241,7 @@ public class TrainingLogger implements Writable {
     }
 
     // MODIFIES: this
-    // EFFECTS: loads workroom from file
+    // EFFECTS: loads training logs from file
     private void loadLogger() {
         try {
             this.logs = jsonReader.read();
