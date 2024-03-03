@@ -5,10 +5,11 @@ import org.json.JSONObject;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 // A log entry representing a record of a singular training session with a list of exercises.
 public class Record extends LogEntry {
-    protected ArrayList<Exercise> exercises;
+    protected List<Exercise> exercises;
 
     // REQUIRES: name is not empty
     // EFFECTS: Instantiates a strength training log entry with empty list of exercises
@@ -40,6 +41,7 @@ public class Record extends LogEntry {
     public JSONObject toJson() {
         JSONObject json = super.toJson();
         json.put("exercises", exercisesToJson());
+        json.put("type", "record");
         return json;
     }
 
@@ -54,7 +56,11 @@ public class Record extends LogEntry {
         return jsonArray;
     }
 
-    public ArrayList<Exercise> getExercises() {
+    public List<Exercise> getExercises() {
         return exercises;
+    }
+
+    public void setExercises(List<Exercise> exercises) {
+        this.exercises = exercises;
     }
 }

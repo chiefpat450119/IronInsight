@@ -2,16 +2,29 @@ package ui;
 
 import model.*;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.JsonReader;
+import persistence.JsonWriter;
+import persistence.Writable;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 // A strength training log, with a list of log entries of various types.
 // Logs can be accessed or summaries generated based on user input.
 // ATTRIBUTION: Structure of this class and the user input implementation are sourced from the TellerApp project.
-public class TrainingLogger {
+public class TrainingLogger implements Writable {
+    private static final String JSON_STORE = "./data/logs.json";
     private ArrayList<LogEntry> logs;
     private Scanner input;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+
+    // TODO: Implement loading and saving
 
     // EFFECTS: Runs the logger application
     public TrainingLogger() {
@@ -76,6 +89,8 @@ public class TrainingLogger {
         logs = new ArrayList<>();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
     }
 
     // EFFECTS: displays main menu of options to user
@@ -193,5 +208,23 @@ public class TrainingLogger {
         int weight = input.nextInt();
         int reps = input.nextInt();
         System.out.print("Your 1-rep max is: " + Math.round(weight / (1.0278 - 0.0278 * reps)));
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("logs", logsToJson());
+        return json;
+    }
+
+    // EFFECTS: returns log entries in this logger as a json array
+    private JSONArray logsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (LogEntry l: logs) {
+            jsonArray.put(l.toJson());
+        }
+
+        return jsonArray;
     }
 }

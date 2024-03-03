@@ -26,6 +26,8 @@ public class PersonalBest extends Record {
     public JSONObject toJson() {
         JSONObject json = super.toJson();
         json.put("pb weight", pbWeight);
+        json.remove("type");
+        json.put("type", "pb");
         return json;
     }
 

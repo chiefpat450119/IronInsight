@@ -52,6 +52,8 @@ public class Goal extends Record {
         json.put("description", description);
         json.put("target date", targetDate);
         json.put("completed", completed);
+        json.remove("type");
+        json.put("type", "goal");
         return json;
     }
 
@@ -65,5 +67,9 @@ public class Goal extends Record {
 
     public String getDescription() {
         return description;
+    }
+
+    public void setTargetDate(LocalDate targetDate) {
+        this.targetDate = targetDate;
     }
 }
