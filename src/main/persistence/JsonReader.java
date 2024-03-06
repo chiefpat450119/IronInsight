@@ -79,7 +79,7 @@ public class JsonReader {
                 record.setExercises(exercises);
                 lst.add(record);
             }
-        } else if (type.equals("pb")) {
+        } else {
             lst.add(createPB(jsonObject, name, date));
         }
     }

@@ -2,11 +2,8 @@ package ui;
 
 import model.*;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import persistence.JsonReader;
 import persistence.JsonWriter;
-import persistence.Writable;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -18,7 +15,7 @@ import java.io.IOException;
 // Logs can be accessed or summaries generated based on user input. Can be saved and loaded.
 // ATTRIBUTION: Structure of this class and the user input implementation are sourced from the TellerApp project.
 // Data persistence implementation is based on JsonSerializationDemo.
-public class TrainingLogger implements Writable {
+public class TrainingLogger {
     private static final String JSON_STORE = "./data/logs.json";
     private List<LogEntry> logs;
     private Scanner input;
@@ -210,29 +207,11 @@ public class TrainingLogger implements Writable {
         System.out.print("Your 1-rep max is: " + Math.round(weight / (1.0278 - 0.0278 * reps)));
     }
 
-    @Override
-    public JSONObject toJson() {
-        JSONObject json = new JSONObject();
-        json.put("logs", logsToJson());
-        return json;
-    }
-
-    // EFFECTS: returns log entries in this logger as a json array
-    private JSONArray logsToJson() {
-        JSONArray jsonArray = new JSONArray();
-
-        for (LogEntry l: logs) {
-            jsonArray.put(l.toJson());
-        }
-
-        return jsonArray;
-    }
-
     // EFFECTS: saves the training logs to file
     private void saveLogger() {
         try {
             jsonWriter.open();
-            jsonWriter.write(this);
+            jsonWriter.write(this.logs);
             jsonWriter.close();
             System.out.println("Saved training logs to " + JSON_STORE);
         } catch (FileNotFoundException e) {

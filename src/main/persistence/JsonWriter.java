@@ -3,7 +3,6 @@ package persistence;
 import model.LogEntry;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import ui.TrainingLogger;
 
 
 import java.io.*;
@@ -26,13 +25,6 @@ public class JsonWriter {
     // be opened for writing
     public void open() throws FileNotFoundException {
         writer = new PrintWriter(new File(destination));
-    }
-
-    // MODIFIES: this
-    // EFFECTS: writes JSON representation of training logger object to file
-    public void write(TrainingLogger tl) {
-        JSONObject json = tl.toJson();
-        saveToFile(json.toString(TAB));
     }
 
     // MODIFIES: this
