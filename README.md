@@ -15,5 +15,5 @@ targeted towards those who are serious about long-term strength goals.
 - As a user, I want to be able to get a list of all my goals and training records
 - As a user, I want to be able to calculate my 1-repetition maximum based on the weight I am currently training with.
 - As a user, I want to be able to mark a goal as completed.
-- As a user, I want to be able to all my logs and goals if I wish to, when selecting "quit" at the main menu
+- As a user, I want to be able to save all my logs and goals if I wish to, from the main menu.
 - As a user, I want to be able to choose to load my logs from a file upon starting the program, if I wish to.

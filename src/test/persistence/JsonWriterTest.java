@@ -11,7 +11,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class JsonWriterTest extends JsonTest {
-    // TODO: add comments for everything
     @Test
     void testWriterInvalidFile() {
         try {

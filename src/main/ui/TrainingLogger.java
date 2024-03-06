@@ -15,7 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 // A strength training log, with a list of log entries of various types.
-// Logs can be accessed or summaries generated based on user input.
+// Logs can be accessed or summaries generated based on user input. Can be saved and loaded.
 // ATTRIBUTION: Structure of this class and the user input implementation are sourced from the TellerApp project.
 // Data persistence implementation is based on JsonSerializationDemo.
 public class TrainingLogger implements Writable {

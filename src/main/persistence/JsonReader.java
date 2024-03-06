@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 import model.*;
 import org.json.*;
 
-// Represents a reader that reads a training logger from JSON data stored in file
+// Represents a reader that reads a training logger and its logs from JSON data stored in file
 // Data persistence implementation is based on JsonSerializationDemo.
 public class JsonReader {
     private String source;
@@ -30,7 +30,7 @@ public class JsonReader {
         return parseTrainingLogs(jsonObject);
     }
 
-    // EFFECTS: reads source file as string and returns it
+    // EFFECTS: reads source file as string and returns it as a string
     private String readFile(String source) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
 

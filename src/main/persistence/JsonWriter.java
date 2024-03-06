@@ -9,7 +9,7 @@ import ui.TrainingLogger;
 import java.io.*;
 import java.util.List;
 
-// Represents a writer that writes JSON representation of training logger to file
+// Represents a writer that writes JSON representation of training logger to file.
 // Data persistence implementation is based on JsonSerializationDemo.
 public class JsonWriter {
     private static final int TAB = 4;
