@@ -8,6 +8,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JsonTest {
+    protected void checkLogEntries(List<LogEntry> logs1, List<LogEntry> logs2) {
+
+    }
     protected void checkLogEntry(String name, LocalDate date, LogEntry logEntry) {
         assertEquals(name, logEntry.getName());
         assertEquals(date, logEntry.getDate());
@@ -27,7 +30,8 @@ public class JsonTest {
     }
 
     protected void checkGoal(String name, LocalDate date,
-                             List<Exercise> exercises, LocalDate targetDate, Goal goal) {
+                             List<Exercise> exercises, LocalDate targetDate,
+                             boolean completed, Goal goal) {
         checkLogEntry(name, date, goal);
         checkExercises(exercises, goal);
     }

@@ -1,0 +1,39 @@
+{"logs": [
+    {
+        "date": "2024-03-05",
+        "exercises": [{
+            "reps": 1,
+            "rpe": 10,
+            "name": "Squats",
+            "weight": 225
+        }],
+        "name": "Squats",
+        "type": "record"
+    },
+    {
+        "date": "2024-03-05",
+        "exercises": [{
+            "reps": 1,
+            "rpe": 10,
+            "name": "Squats",
+            "weight": 225
+        }],
+        "name": "Squats",
+        "description": "Squats",
+        "completed": false,
+        "type": "goal",
+        "target date": "2025-03-05"
+    },
+    {
+        "date": "2024-03-05",
+        "exercises": [{
+            "reps": 1,
+            "rpe": 10,
+            "name": "Squats",
+            "weight": 225
+        }],
+        "name": "Squats",
+        "pb weight": 225,
+        "type": "pb"
+    }
+]}

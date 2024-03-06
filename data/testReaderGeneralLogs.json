@@ -1,0 +1,41 @@
+{"logs": [
+  {
+    "date": "2024-03-05",
+    "exercises": [{
+      "reps": 1,
+      "rpe": 10,
+      "name": "e1",
+      "weight": 225
+    }],
+    "name": "g1",
+    "description": "Bleh",
+    "completed": true,
+    "type": "goal",
+    "target date": "2025-04-04"
+  },
+  {
+    "date": "2024-03-05",
+    "exercises": [
+      {
+        "reps": 10,
+        "rpe": 10,
+        "name": "e2",
+        "weight": 100
+      }
+    ],
+    "name": "entry1",
+    "type": "record"
+  },
+  {
+    "date": "2024-03-05",
+    "exercises": [{
+      "reps": 1,
+      "rpe": 10,
+      "name": "pb1",
+      "weight": 250
+    }],
+    "name": "pb1",
+    "pb weight": 250,
+    "type": "pb"
+  }
+]}

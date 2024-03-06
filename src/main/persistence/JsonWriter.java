@@ -1,10 +1,13 @@
 package persistence;
 
+import model.LogEntry;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import ui.TrainingLogger;
 
 
 import java.io.*;
+import java.util.List;
 
 // Represents a writer that writes JSON representation of training logger to file
 // Data persistence implementation is based on JsonSerializationDemo.
@@ -26,9 +29,25 @@ public class JsonWriter {
     }
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of training logs to file
+    // EFFECTS: writes JSON representation of training logger object to file
     public void write(TrainingLogger tl) {
         JSONObject json = tl.toJson();
+        saveToFile(json.toString(TAB));
+    }
+
+    // MODIFIES: this
+    // EFFECTS: writes JSON representation of a training logs list to file
+    // For testing purposes
+    public void write(List<LogEntry> list) {
+        JSONArray jsonArray = new JSONArray();
+
+        for (LogEntry l: list) {
+            jsonArray.put(l.toJson());
+        }
+
+        JSONObject json = new JSONObject();
+        json.put("logs", jsonArray);
+
         saveToFile(json.toString(TAB));
     }
 
