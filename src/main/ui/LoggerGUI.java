@@ -13,18 +13,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Plan: it's gonna be a window with buttons to add different types of log entries
-// TODO: Button to view progress (all), button to view by date
-// TODO: Button to mark a goal as completed with confetti
-// TODO: Progress screen as an indented list with a back button
-// TODO: Buttons to load and save
-// TODO: Jacked dude image, weights etc in 8 bit style
-// TODO: Add icon
+/*
+ TODO: Plan: it's gonna be tabbed panes one tab with buttons to add different types of log entries
+ TODO: fields to enter info
+ TODO: Button to view progress (all), button to view by date
+ TODO: Button to mark a goal as completed with confetti (on manage goals tab), with dropdown selection
+ TODO: Progress screen as an indented list with a back button (on progress tab)
+ TODO: Buttons to load and save (file tab)
+ TODO: Each tab has a panel
+ TODO: Jacked dude image, weights etc in 8 bit style
+ */
+
 public class LoggerGUI extends JFrame {
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 700;
     private static final String JSON_STORE = "./data/logs.json";
 
+    private JTabbedPane pane;
     private List<LogEntry> logs;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
@@ -35,6 +40,9 @@ public class LoggerGUI extends JFrame {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
         initializeGraphics();
+        createButtons();
+        ImageIcon img = new ImageIcon("./assets/icon.png");
+        setIconImage(img.getImage());
     }
 
     // MODIFIES: this
@@ -47,6 +55,10 @@ public class LoggerGUI extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
+    }
+
+    private void createButtons() {
+
     }
 
     // EFFECTS: saves the training logs to file
