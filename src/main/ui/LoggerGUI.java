@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.List;
 /*
  TODO: Plan: it's gonna be tabbed panes one tab with buttons to add different types of log entries
  TODO: fields to enter info
- TODO: Button to view progress (all), button to view by date
+ TODO: Button to view progress (all), button to view by date on progress tab
  TODO: Button to mark a goal as completed with confetti (on manage goals tab), with dropdown selection
  TODO: Progress screen as an indented list with a back button (on progress tab)
  TODO: Buttons to load and save (file tab)
@@ -27,9 +28,22 @@ import java.util.List;
 public class LoggerGUI extends JFrame {
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 700;
+    public static final Font FONT;
     private static final String JSON_STORE = "./data/logs.json";
 
+    static {
+        try {
+            FONT = Font.createFont(Font.TRUETYPE_FONT, new File("./assets/8bit.ttf"));
+        } catch (FontFormatException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private JTabbedPane pane;
+    private HomePage homePage;
+    private FilePage filePage;
+    private GoalsPage goalsPage;
+    private ProgressPage progressPage;
     private List<LogEntry> logs;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
@@ -40,9 +54,9 @@ public class LoggerGUI extends JFrame {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
         initializeGraphics();
-        createButtons();
         ImageIcon img = new ImageIcon("./assets/icon.png");
         setIconImage(img.getImage());
+        setupTabs();
     }
 
     // MODIFIES: this
@@ -55,14 +69,24 @@ public class LoggerGUI extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
+        pane = new JTabbedPane();
     }
 
-    private void createButtons() {
-
+    private void setupTabs() {
+        this.homePage = new HomePage(this);
+        this.goalsPage = new GoalsPage(this);
+        this.filePage = new FilePage(this);
+        this.progressPage = new ProgressPage(this);
+        pane.addTab("Home", homePage);
+        pane.addTab("Progress", progressPage);
+        pane.addTab("Goals", goalsPage);
+        pane.addTab("File", filePage);
+        // TODO
+        add(pane);
     }
 
     // EFFECTS: saves the training logs to file
-    private void saveLogger() {
+    public void saveLogger() {
         try {
             jsonWriter.open();
             jsonWriter.write(this.logs);
@@ -75,7 +99,7 @@ public class LoggerGUI extends JFrame {
 
     // MODIFIES: this
     // EFFECTS: loads training logs from file
-    private void loadLogger() {
+    public void loadLogger() {
         try {
             this.logs = jsonReader.read();
             System.out.println("Loaded training logs from " + JSON_STORE);
