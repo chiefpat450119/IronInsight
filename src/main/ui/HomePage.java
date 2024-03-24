@@ -13,7 +13,8 @@ public class HomePage extends Page {
 
     @Override
     protected void addComponents() {
-        JLabel title = new JLabel("Welcome to Iron Insight, your personal strength training tracker.", SwingConstants.CENTER);
+        JLabel title = new JLabel("Welcome to Iron Insight, your personal strength training tracker.",
+                SwingConstants.CENTER);
         title.setFont(LoggerGUI.FONT.deriveFont(30f));
         add(title, BorderLayout.NORTH);
         // TODO: Add a card layout to do different things
