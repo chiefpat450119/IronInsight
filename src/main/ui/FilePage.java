@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class FilePage extends Page {
-    public FilePage(JFrame gui) {
+    public FilePage(LoggerGUI gui) {
         super(new BorderLayout(), gui);
         addComponents();
     }

@@ -10,7 +10,7 @@ public class HomePage extends Page {
     CardLayout cards;
     JPanel cardContainer;
 
-    public HomePage(JFrame gui) {
+    public HomePage(LoggerGUI gui) {
         super(new BorderLayout(), gui);
         this.cards = new CardLayout();
         cardContainer = new JPanel(cards);
@@ -38,17 +38,59 @@ public class HomePage extends Page {
     }
 
     private JPanel createGoalsMenu() {
-        JPanel goalsMenu = new JPanel(new BorderLayout());
-        goalsMenu.add(new JLabel("Add Goals"), BorderLayout.NORTH);
-        // TODO: add text fields
+        JPanel goalsMenu = new JPanel(new GridLayout(0, 2, 20, 10));
+        addLabel(goalsMenu, "Name");
+        JTextField nameField = addTextField(goalsMenu, "Patrick's Goal");
+        addLabel(goalsMenu, "Target Completion Date (YYYY-MM-DD)");
+        JTextField dateField = addTextField(goalsMenu, "2024-03-24");
+        addLabel(goalsMenu, "Exercise Name");
+        JTextField exerciseField = addTextField(goalsMenu, "Bench Press");
+        addLabel(goalsMenu, "Target Weight (lbs)");
+        JTextField weightField = addTextField(goalsMenu, "100");
+        addLabel(goalsMenu, "Description");
+        JTextArea descriptionField = new JTextArea();
+        goalsMenu.add(descriptionField);
+        JLabel message = addLabel(goalsMenu, "Log entry added successfully!", 15f);
+        message.setVisible(false);
+
+        JButton confirmButton = new JButton("Add to Log");
+        confirmButton.setFont(LoggerGUI.getFont(20f));
+        confirmButton.addActionListener(e -> {
+            gui.addGoal(nameField.getText(), dateField.getText(), exerciseField.getText(),
+                    weightField.getText(), descriptionField.getText());
+            message.setVisible(true);
+        });
+        goalsMenu.add(confirmButton);
         return goalsMenu;
     }
 
     private JPanel createLogsMenu() {
-        JPanel logsMenu = new JPanel(new BorderLayout());
-        logsMenu.add(new JLabel("Add Training Logs"), BorderLayout.NORTH);
+        JPanel logsMenu = new JPanel(new GridLayout(0, 2, 20, 10));
         // TODO: add text fields, use radio button to hide or reveal components depending on PB status
+        addLabel(logsMenu, "Name");
+        JTextField nameField = addTextField(logsMenu, "Patrick's Log Entry");
+        addPbSelector(logsMenu);
+
+        // TODO: Add a button to add exercises that creates a popup, and a text display of added exercises
+
         return logsMenu;
+    }
+
+    // MODIFIES: logsMenu
+    // EFFECTS: creates radio buttons to choose whether to add a pb entry
+    private void addPbSelector(JPanel logsMenu) {
+        addLabel(logsMenu, "Is this a personal best entry?");
+        JRadioButton yesButton = new JRadioButton("Yes");
+        JRadioButton noButton = new JRadioButton("No");
+        ButtonGroup group = new ButtonGroup();
+        group.add(yesButton);
+        group.add(noButton);
+        JPanel buttonPanel = new JPanel(new BorderLayout());
+        buttonPanel.add(yesButton, BorderLayout.WEST);
+        buttonPanel.add(noButton, BorderLayout.CENTER);
+        logsMenu.add(buttonPanel);
+        addLabel(logsMenu, "Personal Best Weight");
+        JTextField weightField = addTextField(logsMenu, "100");
     }
 
     private JPanel createSideBar() {
@@ -57,18 +99,9 @@ public class HomePage extends Page {
         logsButton.setFont(LoggerGUI.getFont(20f));
         JButton goalsButton = new JButton("Add Goals");
         goalsButton.setFont(LoggerGUI.getFont(20f));
-        logsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cards.show(cardContainer, "logs");
-            }
-        });
-        goalsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cards.show(cardContainer, "goals");
-            }
-        });
+
+        logsButton.addActionListener(e -> cards.show(cardContainer, "logs"));
+        goalsButton.addActionListener(e -> cards.show(cardContainer, "goals"));
         buttonContainer.add(logsButton);
         buttonContainer.add(goalsButton);
         return buttonContainer;

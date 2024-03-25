@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ProgressPage extends Page {
-    public ProgressPage(JFrame gui) {
+    public ProgressPage(LoggerGUI gui) {
         super(new BorderLayout(), gui);
         addComponents();
     }

@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GoalsPage extends Page {
-    public GoalsPage(JFrame gui) {
+    public GoalsPage(LoggerGUI gui) {
         super(new BorderLayout(), gui);
         addComponents();
     }
