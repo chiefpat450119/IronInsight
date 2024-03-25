@@ -53,23 +53,22 @@ public class LoggerGUI extends JFrame {
         logs = new ArrayList<>();
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
-        initializeGraphics();
+        pane = new JTabbedPane();
+
         ImageIcon img = new ImageIcon("./assets/icon.png");
         setIconImage(img.getImage());
-        setupTabs();
+        initializeGraphics();
     }
 
     // MODIFIES: this
     // EFFECTS:  draws the JFrame window where this DrawingEditor will operate, and populates the tools to be used
     //           to manipulate this drawing
     private void initializeGraphics() {
-        setLayout(new BorderLayout());
-        setSize(new Dimension(WIDTH, HEIGHT));
+        setupTabs();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setResizable(false);
+        setSize(new Dimension(WIDTH, HEIGHT));
         setVisible(true);
-        pane = new JTabbedPane();
+        setResizable(false);
     }
 
     private void setupTabs() {
@@ -81,7 +80,7 @@ public class LoggerGUI extends JFrame {
         pane.addTab("Progress", progressPage);
         pane.addTab("Goals", goalsPage);
         pane.addTab("File", filePage);
-        // TODO
+        pane.setFont(getFont(15f));
         add(pane);
     }
 
@@ -106,6 +105,10 @@ public class LoggerGUI extends JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Font getFont(float size) {
+        return FONT.deriveFont(size);
     }
 
 }
