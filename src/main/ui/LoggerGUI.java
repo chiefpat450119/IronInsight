@@ -1,28 +1,18 @@
 package ui;
 
-import model.LogEntry;
-import persistence.JsonReader;
-import persistence.JsonWriter;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 /*
- TODO: Plan: it's gonna be tabbed panes one tab with buttons to add different types of log entries
- TODO: fields to enter info
  TODO: Button to view progress (all), button to view by date on progress tab
  TODO: Button to mark a goal as completed with confetti (on manage goals tab), with dropdown selection
  TODO: Progress screen as an indented list with a back button (on progress tab)
  TODO: Buttons to load and save (file tab)
- TODO: Each tab has a panel
  TODO: Jacked dude image, weights etc in 8 bit style
  */
 
@@ -60,6 +50,8 @@ public class LoggerGUI extends JFrame {
     // EFFECTS:  draws the JFrame window where this DrawingEditor will operate, and populates the tools to be used
     //           to manipulate this drawing
     private void initializeGraphics() {
+        setLayout(new BorderLayout());
+        // TODO: Add file menu here
         setupTabs();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(new Dimension(WIDTH, HEIGHT));
@@ -77,7 +69,7 @@ public class LoggerGUI extends JFrame {
         pane.addTab("Goals", goalsPage);
         pane.addTab("File", filePage);
         pane.setFont(getFont(15f));
-        add(pane);
+        add(pane, BorderLayout.CENTER);
     }
 
     public static Font getFont(float size) {

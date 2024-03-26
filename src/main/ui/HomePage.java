@@ -6,9 +6,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 // Represents a panel for the home page tab of the UI
-public class HomePage extends Page {
+public class HomePage extends Page implements ActionListener {
     CardLayout cards;
     JPanel cardContainer;
+    JLabel pbWeightLabel;
+    JTextField pbWeightField;
+    JLabel message;
+    JPanel exerciseFields;
+    // TODO: Make the disappearing elements fields
 
     public HomePage(LoggerGUI gui) {
         super(new BorderLayout(), gui);
@@ -37,6 +42,75 @@ public class HomePage extends Page {
         add(sl, BorderLayout.CENTER);
     }
 
+    private JPanel createSideBar() {
+        JPanel buttonContainer = new JPanel(new GridLayout(3, 1));
+        JButton logsButton = new JButton("Add Training Logs");
+        logsButton.setFont(LoggerGUI.getFont(20f));
+        JButton goalsButton = new JButton("Add Goals");
+        goalsButton.setFont(LoggerGUI.getFont(20f));
+
+        logsButton.addActionListener(this);
+        logsButton.setActionCommand("Switch to logs tab");
+        goalsButton.addActionListener(this);
+        goalsButton.setActionCommand("Switch to goals tab");
+        buttonContainer.add(logsButton);
+        buttonContainer.add(goalsButton);
+        return buttonContainer;
+    }
+
+    private JPanel createLogsMenu() {
+        JPanel logsMenu = new JPanel(new GridLayout(0, 2, 20, 10));
+        addLabel(logsMenu, "Name");
+        JTextField nameField = addTextField(logsMenu, "Patrick's Log Entry");
+        addPbSelector(logsMenu);
+        // TODO: Add a button to add exercises that reveals exercise field, and a text display of added exercises
+        // TODO: Make visibility controlled by radio buttons, and use add and complete buttons.
+        exerciseFields = new JPanel(new GridLayout(0, 2, 10, 10));
+        addLabel(exerciseFields, "Exercise name", 12f);
+        JTextField exerciseNameField =  addTextField(exerciseFields, "Deadlift");
+        addLabel(exerciseFields, "Weight (lbs)", 12f);
+        JTextField exerciseWeightField = addTextField(exerciseFields, "135");
+        addLabel(exerciseFields, "Number of reps", 12f);
+        JTextField repsField = addTextField(exerciseFields, "8");
+        addLabel(exerciseFields, "RPE (1-10)", 12f);
+        JTextField rpeField = addTextField(exerciseFields, "5");
+        JButton addExerciseButton = new JButton("Add Exercise");
+        addExerciseButton.setFont(LoggerGUI.getFont(12f));
+        addExerciseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO: maybe use a static createExercise from LogManager?
+            }
+        });
+        exerciseFields.add(addExerciseButton);
+        logsMenu.add(exerciseFields);
+        // TODO: Add a confirm button
+        return logsMenu;
+    }
+
+    // MODIFIES: logsMenu
+    // EFFECTS: creates radio buttons to choose whether to add a pb entry, along with corresponding fields.
+    private void addPbSelector(JPanel logsMenu) {
+        addLabel(logsMenu, "Is this a personal best entry?");
+        JRadioButton yesButton = new JRadioButton("Yes");
+        yesButton.addActionListener(this);
+        yesButton.setActionCommand("Reveal pb fields");
+        JRadioButton noButton = new JRadioButton("No");
+        noButton.addActionListener(this);
+        noButton.setActionCommand("Hide pb fields");
+        ButtonGroup group = new ButtonGroup();
+        group.add(yesButton);
+        group.add(noButton);
+        JPanel buttonPanel = new JPanel(new BorderLayout());
+        buttonPanel.add(yesButton, BorderLayout.WEST);
+        buttonPanel.add(noButton, BorderLayout.CENTER);
+        logsMenu.add(buttonPanel);
+        pbWeightLabel =  addLabel(logsMenu, "Personal Best Weight");
+        pbWeightField = addTextField(logsMenu, "225");
+        pbWeightField.setVisible(false);
+        pbWeightLabel.setVisible(false);
+    }
+
     private JPanel createGoalsMenu() {
         JPanel goalsMenu = new JPanel(new GridLayout(0, 2, 20, 10));
         addLabel(goalsMenu, "Name");
@@ -50,60 +124,41 @@ public class HomePage extends Page {
         addLabel(goalsMenu, "Description");
         JTextArea descriptionField = new JTextArea();
         goalsMenu.add(descriptionField);
-        JLabel message = addLabel(goalsMenu, "Log entry added successfully!", 15f);
-        message.setVisible(false);
+        addConfirmButton(goalsMenu, nameField, dateField, exerciseField, weightField, descriptionField);
+        message = addLabel(goalsMenu, "Log entry added successfully!", 15f);
+        message.setVisible(false);  // Initially hidden success message
+        return goalsMenu;
+    }
 
+    // MODIFIES: goalsMenu
+    // EFFECTS: Adds a confirm button to the goals menu
+    private void addConfirmButton(JPanel goalsMenu, JTextField nameField, JTextField dateField,
+                                  JTextField exerciseField, JTextField weightField, JTextArea descriptionField) {
         JButton confirmButton = new JButton("Add to Log");
         confirmButton.setFont(LoggerGUI.getFont(20f));
         confirmButton.addActionListener(e -> {
             gui.addGoal(nameField.getText(), dateField.getText(), exerciseField.getText(),
                     weightField.getText(), descriptionField.getText());
             message.setVisible(true);
+            clearFields(goalsMenu);
         });
         goalsMenu.add(confirmButton);
-        return goalsMenu;
     }
 
-    private JPanel createLogsMenu() {
-        JPanel logsMenu = new JPanel(new GridLayout(0, 2, 20, 10));
-        // TODO: add text fields, use radio button to hide or reveal components depending on PB status
-        addLabel(logsMenu, "Name");
-        JTextField nameField = addTextField(logsMenu, "Patrick's Log Entry");
-        addPbSelector(logsMenu);
-
-        // TODO: Add a button to add exercises that creates a popup, and a text display of added exercises
-
-        return logsMenu;
-    }
-
-    // MODIFIES: logsMenu
-    // EFFECTS: creates radio buttons to choose whether to add a pb entry
-    private void addPbSelector(JPanel logsMenu) {
-        addLabel(logsMenu, "Is this a personal best entry?");
-        JRadioButton yesButton = new JRadioButton("Yes");
-        JRadioButton noButton = new JRadioButton("No");
-        ButtonGroup group = new ButtonGroup();
-        group.add(yesButton);
-        group.add(noButton);
-        JPanel buttonPanel = new JPanel(new BorderLayout());
-        buttonPanel.add(yesButton, BorderLayout.WEST);
-        buttonPanel.add(noButton, BorderLayout.CENTER);
-        logsMenu.add(buttonPanel);
-        addLabel(logsMenu, "Personal Best Weight");
-        JTextField weightField = addTextField(logsMenu, "100");
-    }
-
-    private JPanel createSideBar() {
-        JPanel buttonContainer = new JPanel(new GridLayout(3, 1));
-        JButton logsButton = new JButton("Add Training Logs");
-        logsButton.setFont(LoggerGUI.getFont(20f));
-        JButton goalsButton = new JButton("Add Goals");
-        goalsButton.setFont(LoggerGUI.getFont(20f));
-
-        logsButton.addActionListener(e -> cards.show(cardContainer, "logs"));
-        goalsButton.addActionListener(e -> cards.show(cardContainer, "goals"));
-        buttonContainer.add(logsButton);
-        buttonContainer.add(goalsButton);
-        return buttonContainer;
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("Switch to logs tab")) {
+            cards.show(cardContainer, "logs");
+        } else if (e.getActionCommand().equals("Switch to goals tab")) {
+            cards.show(cardContainer, "goals");
+        } else if (e.getActionCommand().equals("Reveal pb fields")) {
+            pbWeightField.setVisible(true);
+            pbWeightLabel.setVisible(true);
+            exerciseFields.setVisible(false);
+        } else if (e.getActionCommand().equals("Hide pb fields")) {
+            pbWeightField.setVisible(false);
+            pbWeightLabel.setVisible(false);
+            exerciseFields.setVisible(true);
+        }
     }
 }

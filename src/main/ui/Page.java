@@ -1,6 +1,7 @@
 package ui;
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -40,6 +41,16 @@ public abstract class Page extends JPanel {
         });
         panel.add(textField);
         return textField;
+    }
+
+    protected static void clearFields(JComponent container) {
+        for (Component c: container.getComponents()) {
+            if (c instanceof JTextComponent) {
+                JTextComponent textField = (JTextComponent) c;
+                textField.setText("");
+                container.repaint();
+            }
+        }
     }
 
     protected abstract void addComponents();
