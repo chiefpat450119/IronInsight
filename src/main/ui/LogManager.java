@@ -23,6 +23,13 @@ public class LogManager {
         jsonReader = new JsonReader(JSON_STORE);
     }
 
+    public void addLogEntry(String name, List<Exercise> exercises) {
+        Record record = new Record(LocalDate.now(), name);
+        for (Exercise e: exercises) {
+            record.addExercise(e);
+        }
+    }
+
     public void addGoal(String name, LocalDate date, String exerciseName, int weight, String description) {
         Goal goal = new Goal(LocalDate.now(), name, description);
         goal.addTarget(date, weight, exerciseName);
@@ -52,7 +59,15 @@ public class LogManager {
         }
     }
 
+    public static Exercise createExercise(String name, String weight, String reps, String rpe) {
+        return new Exercise(name, Integer.parseInt(weight), Integer.parseInt(reps), Integer.parseInt(rpe));
+    }
+
     public List<LogEntry> getLogs() {
         return logs;
+    }
+
+    public void addPersonalBest(String name, int weight) {
+        logs.add(new PersonalBest(LocalDate.now(), name, weight));
     }
 }

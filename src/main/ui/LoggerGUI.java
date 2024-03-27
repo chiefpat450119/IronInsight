@@ -1,5 +1,7 @@
 package ui;
 
+import model.Exercise;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -80,4 +82,11 @@ public class LoggerGUI extends JFrame {
         logManager.addGoal(name, LocalDate.parse(date), exerciseName, Integer.parseInt(weight), description);
     }
 
+    public void addLogEntry(String name, List<Exercise> exercises) {
+        logManager.addLogEntry(name, exercises);
+    }
+
+    public void addPersonalBest(String name, String pbWeight) {
+        logManager.addPersonalBest(name, Integer.parseInt(pbWeight));
+    }
 }

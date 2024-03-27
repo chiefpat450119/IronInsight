@@ -1,9 +1,13 @@
 package ui;
 
+import model.Exercise;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.ArrayList;
 
 // Represents a panel for the home page tab of the UI
 public class HomePage extends Page implements ActionListener {
@@ -12,8 +16,10 @@ public class HomePage extends Page implements ActionListener {
     JLabel pbWeightLabel;
     JTextField pbWeightField;
     JLabel message;
+    JLabel message2;
     JPanel exerciseFields;
-    // TODO: Make the disappearing elements fields
+    boolean isPb = false;
+    List<Exercise> exerciseList;
 
     public HomePage(LoggerGUI gui) {
         super(new BorderLayout(), gui);
@@ -63,8 +69,28 @@ public class HomePage extends Page implements ActionListener {
         addLabel(logsMenu, "Name");
         JTextField nameField = addTextField(logsMenu, "Patrick's Log Entry");
         addPbSelector(logsMenu);
-        // TODO: Add a button to add exercises that reveals exercise field, and a text display of added exercises
-        // TODO: Make visibility controlled by radio buttons, and use add and complete buttons.
+        addExerciseFields(logsMenu);
+
+        JButton confirmButton = new JButton("Add to Log");
+        confirmButton.setFont(LoggerGUI.getFont(20f));
+        confirmButton.addActionListener(e -> {
+            if (isPb) {
+                gui.addPersonalBest(nameField.getText(), pbWeightField.getText());
+            } else {
+                gui.addLogEntry(nameField.getText(), exerciseList);
+            }
+            clearFields(logsMenu);
+            message2.setVisible(true);
+        });
+        logsMenu.add(confirmButton);
+        message2 = addLabel(logsMenu, "Added successfully!", 15f);
+        message2.setVisible(false);  // Initially hidden success message
+
+        return logsMenu;
+    }
+
+    private void addExerciseFields(JPanel logsMenu) {
+        exerciseList = new ArrayList<>();
         exerciseFields = new JPanel(new GridLayout(0, 2, 10, 10));
         addLabel(exerciseFields, "Exercise name", 12f);
         JTextField exerciseNameField =  addTextField(exerciseFields, "Deadlift");
@@ -76,16 +102,14 @@ public class HomePage extends Page implements ActionListener {
         JTextField rpeField = addTextField(exerciseFields, "5");
         JButton addExerciseButton = new JButton("Add Exercise");
         addExerciseButton.setFont(LoggerGUI.getFont(12f));
-        addExerciseButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // TODO: maybe use a static createExercise from LogManager?
-            }
+        addExerciseButton.addActionListener(e -> {
+            Exercise exercise = LogManager.createExercise(exerciseNameField.getText(),
+                    exerciseWeightField.getText(), repsField.getText(), rpeField.getText());
+            exerciseList.add(exercise);
+            clearFields(exerciseFields);
         });
         exerciseFields.add(addExerciseButton);
         logsMenu.add(exerciseFields);
-        // TODO: Add a confirm button
-        return logsMenu;
     }
 
     // MODIFIES: logsMenu
@@ -105,7 +129,7 @@ public class HomePage extends Page implements ActionListener {
         buttonPanel.add(yesButton, BorderLayout.WEST);
         buttonPanel.add(noButton, BorderLayout.CENTER);
         logsMenu.add(buttonPanel);
-        pbWeightLabel =  addLabel(logsMenu, "Personal Best Weight");
+        pbWeightLabel = addLabel(logsMenu, "Personal Best Weight");
         pbWeightField = addTextField(logsMenu, "225");
         pbWeightField.setVisible(false);
         pbWeightLabel.setVisible(false);
@@ -125,7 +149,7 @@ public class HomePage extends Page implements ActionListener {
         JTextArea descriptionField = new JTextArea();
         goalsMenu.add(descriptionField);
         addConfirmButton(goalsMenu, nameField, dateField, exerciseField, weightField, descriptionField);
-        message = addLabel(goalsMenu, "Log entry added successfully!", 15f);
+        message = addLabel(goalsMenu, "Added successfully!", 15f);
         message.setVisible(false);  // Initially hidden success message
         return goalsMenu;
     }
@@ -134,7 +158,7 @@ public class HomePage extends Page implements ActionListener {
     // EFFECTS: Adds a confirm button to the goals menu
     private void addConfirmButton(JPanel goalsMenu, JTextField nameField, JTextField dateField,
                                   JTextField exerciseField, JTextField weightField, JTextArea descriptionField) {
-        JButton confirmButton = new JButton("Add to Log");
+        JButton confirmButton = new JButton("Add Goal");
         confirmButton.setFont(LoggerGUI.getFont(20f));
         confirmButton.addActionListener(e -> {
             gui.addGoal(nameField.getText(), dateField.getText(), exerciseField.getText(),
@@ -155,10 +179,12 @@ public class HomePage extends Page implements ActionListener {
             pbWeightField.setVisible(true);
             pbWeightLabel.setVisible(true);
             exerciseFields.setVisible(false);
+            isPb = true;
         } else if (e.getActionCommand().equals("Hide pb fields")) {
             pbWeightField.setVisible(false);
             pbWeightLabel.setVisible(false);
             exerciseFields.setVisible(true);
+            isPb = false;
         }
     }
 }
