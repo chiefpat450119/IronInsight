@@ -28,6 +28,7 @@ public class LogManager {
         for (Exercise e: exercises) {
             record.addExercise(e);
         }
+        logs.add(record);
     }
 
     public void addGoal(String name, LocalDate date, String exerciseName, int weight, String description) {

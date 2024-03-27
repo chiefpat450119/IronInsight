@@ -4,6 +4,8 @@ import model.Exercise;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -33,7 +35,6 @@ public class LoggerGUI extends JFrame {
 
     private JTabbedPane pane;
     private HomePage homePage;
-    private FilePage filePage;
     private GoalsPage goalsPage;
     private ProgressPage progressPage;
     private LogManager logManager;
@@ -53,7 +54,7 @@ public class LoggerGUI extends JFrame {
     //           to manipulate this drawing
     private void initializeGraphics() {
         setLayout(new BorderLayout());
-        // TODO: Add file menu here
+        addFileMenu();
         setupTabs();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(new Dimension(WIDTH, HEIGHT));
@@ -61,15 +62,27 @@ public class LoggerGUI extends JFrame {
         setResizable(false);
     }
 
+    private void addFileMenu() {
+        JMenuBar fileMenuBar = new JMenuBar();
+        JMenu fileMenu = new JMenu("File");
+        JMenuItem loadLogsButton = new JMenuItem("Load saved logs");
+        // TODO: add confirmation and failure message
+        loadLogsButton.addActionListener(e -> logManager.loadLogger());
+        JMenuItem saveLogsButton = new JMenuItem("Save logs to file");
+        saveLogsButton.addActionListener(e -> logManager.saveLogger());
+        fileMenu.add(loadLogsButton);
+        fileMenu.add(saveLogsButton);
+        fileMenuBar.add(fileMenu);
+        add(fileMenuBar, BorderLayout.NORTH);
+    }
+
     private void setupTabs() {
         this.homePage = new HomePage(this);
         this.goalsPage = new GoalsPage(this);
-        this.filePage = new FilePage(this);
         this.progressPage = new ProgressPage(this);
         pane.addTab("Home", homePage);
         pane.addTab("Progress", progressPage);
         pane.addTab("Goals", goalsPage);
-        pane.addTab("File", filePage);
         pane.setFont(getFont(15f));
         add(pane, BorderLayout.CENTER);
     }
