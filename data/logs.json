@@ -1,0 +1,30 @@
+{"logs": [
+    {
+        "date": "2024-03-27",
+        "exercises": [{
+            "reps": 1,
+            "rpe": 10,
+            "name": "dksfjglkd",
+            "weight": 60
+        }],
+        "name": "lskadjfljsdf",
+        "description": "lskjglkjsdfg",
+        "completed": true,
+        "type": "goal",
+        "target date": "2025-03-03"
+    },
+    {
+        "date": "2024-03-27",
+        "exercises": [{
+            "reps": 1,
+            "rpe": 10,
+            "name": "alsdjklf",
+            "weight": 100
+        }],
+        "name": "asldkjfld",
+        "description": "asjlgjlkasd",
+        "completed": true,
+        "type": "goal",
+        "target date": "2026-06-06"
+    }
+]}

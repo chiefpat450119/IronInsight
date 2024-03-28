@@ -1,6 +1,8 @@
 package ui;
 
 import model.Exercise;
+import model.Goal;
+import model.LogEntry;
 
 import javax.swing.*;
 import java.awt.*;
@@ -101,5 +103,13 @@ public class LoggerGUI extends JFrame {
 
     public void addPersonalBest(String name, String pbWeight) {
         logManager.addPersonalBest(name, Integer.parseInt(pbWeight));
+    }
+
+    public List<Goal> getGoals() {
+        return logManager.getGoals();
+    }
+
+    public List<LogEntry> getLogs() {
+        return logManager.getLogs();
     }
 }

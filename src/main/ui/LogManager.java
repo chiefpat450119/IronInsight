@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO
+// TODO: fetch summaries
 public class LogManager {
     private static final String JSON_STORE = "./data/logs.json";
 
@@ -64,11 +64,23 @@ public class LogManager {
         return new Exercise(name, Integer.parseInt(weight), Integer.parseInt(reps), Integer.parseInt(rpe));
     }
 
-    public List<LogEntry> getLogs() {
-        return logs;
-    }
-
     public void addPersonalBest(String name, int weight) {
         logs.add(new PersonalBest(LocalDate.now(), name, weight));
+    }
+
+    //
+    public List<Goal> getGoals() {
+        List<Goal> result = new ArrayList<>();
+        for (LogEntry l: logs) {
+            if (l instanceof Goal) {
+                Goal goal = (Goal) l;
+                result.add(goal);
+            }
+        }
+        return result;
+    }
+
+    public List<LogEntry> getLogs() {
+        return logs;
     }
 }

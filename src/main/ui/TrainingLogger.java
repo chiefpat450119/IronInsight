@@ -229,4 +229,9 @@ public class TrainingLogger {
             e.printStackTrace();
         }
     }
+
+    // For Testing
+    public static void main(String[] args) {
+        new TrainingLogger();
+    }
 }
