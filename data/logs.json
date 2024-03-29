@@ -9,7 +9,7 @@
         }],
         "name": "lskadjfljsdf",
         "description": "lskjglkjsdfg",
-        "completed": false,
+        "completed": true,
         "type": "goal",
         "target date": "2025-03-03"
     },
@@ -104,5 +104,30 @@
         ],
         "name": "asjdljjlkads",
         "type": "record"
+    },
+    {
+        "date": "2024-03-28",
+        "exercises": [{
+            "reps": 8,
+            "rpe": 5,
+            "name": "Squat",
+            "weight": 135
+        }],
+        "name": "Patrick's Log Entry",
+        "type": "record"
+    },
+    {
+        "date": "2024-03-28",
+        "exercises": [{
+            "reps": 1,
+            "rpe": 10,
+            "name": "Bench Press",
+            "weight": 20000
+        }],
+        "name": "new goal",
+        "description": "ksjlkfjajdsf",
+        "completed": false,
+        "type": "goal",
+        "target date": "2024-03-24"
     }
 ]}

@@ -46,7 +46,7 @@ public class GoalsPage extends Page {
                 selectedGoal.setCompleted();
                 displayList.repaint();
                 JOptionPane.showMessageDialog(this, "Congrats for completing a goal!",
-                        "Goal Completed! 🎉", JOptionPane.INFORMATION_MESSAGE, LoggerGUI.BODY_BUILDER_IMAGE);
+                        "Goal Completed! :D", JOptionPane.INFORMATION_MESSAGE, LoggerGUI.BODY_BUILDER_IMAGE);
             }
         });
         completeButton.setFont(LoggerGUI.getFont(25f));
