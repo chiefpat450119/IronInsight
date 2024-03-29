@@ -9,18 +9,18 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ArrayList;
 
-// Represents a panel for the home page tab of the UI
+// Represents a panel for the home page tab of the UI, where goals and logs can be added.
 public class HomePage extends Page implements ActionListener {
     CardLayout cards;
     JPanel cardContainer;
     JLabel pbWeightLabel;
     JTextField pbWeightField;
-    JLabel message;
-    JLabel message2;
     JPanel exerciseFields;
     boolean isPb = false;
     List<Exercise> exerciseList;
 
+    // EFFECTS: Initializes the home page with a CardLayout to switch between panels for adding goals and logs.
+    // Adds all required components.
     public HomePage(LoggerGUI gui) {
         super(new BorderLayout(), gui);
         this.cards = new CardLayout();
@@ -28,6 +28,8 @@ public class HomePage extends Page implements ActionListener {
         addComponents();
     }
 
+    // MODIFIES: this
+    // EFFECTS: Creates and adds all components to this page in a grid layout.
     @Override
     protected void addComponents() {
         JLabel title = new JLabel("Welcome to Iron Insight, your personal strength training tracker.",
@@ -48,6 +50,7 @@ public class HomePage extends Page implements ActionListener {
         add(sl, BorderLayout.CENTER);
     }
 
+    // EFFECTS: Returns the sidebar panel containing buttons to switch between adding goals and logs.
     private JPanel createSideBar() {
         JPanel buttonContainer = new JPanel(new GridLayout(3, 1));
         JButton logsButton = new JButton("Add Training Logs");
@@ -64,6 +67,7 @@ public class HomePage extends Page implements ActionListener {
         return buttonContainer;
     }
 
+    // EFFECTS: Returns the panel with fields and buttons for adding a log entry.
     private JPanel createLogsMenu() {
         JPanel logsMenu = new JPanel(new GridLayout(0, 2, 20, 10));
         addLabel(logsMenu, "Name");
@@ -80,20 +84,22 @@ public class HomePage extends Page implements ActionListener {
                 gui.addLogEntry(nameField.getText(), exerciseList);
             }
             clearFields(logsMenu);
-            message2.setVisible(true);
+            exerciseList.clear();
+            JOptionPane.showMessageDialog(this, "Log entry added successfully!",
+                    "Success", JOptionPane.INFORMATION_MESSAGE, LoggerGUI.DUMBBELL);
         });
         logsMenu.add(confirmButton);
-        message2 = addLabel(logsMenu, "Added successfully!", 15f);
-        message2.setVisible(false);  // Initially hidden success message
 
         return logsMenu;
     }
 
+    // MODIFIES: this, logsMenu
+    // EFFECTS: Adds a panel section with text fields for adding exercises to exerciseList to logsMenu.
     private void addExerciseFields(JPanel logsMenu) {
         exerciseList = new ArrayList<>();
         exerciseFields = new JPanel(new GridLayout(0, 2, 10, 10));
         addLabel(exerciseFields, "Exercise name", 12f);
-        JTextField exerciseNameField =  addTextField(exerciseFields, "Deadlift");
+        JTextField exerciseNameField =  addTextField(exerciseFields, "Squat");
         addLabel(exerciseFields, "Weight (lbs)", 12f);
         JTextField exerciseWeightField = addTextField(exerciseFields, "135");
         addLabel(exerciseFields, "Number of reps", 12f);
@@ -112,7 +118,7 @@ public class HomePage extends Page implements ActionListener {
         logsMenu.add(exerciseFields);
     }
 
-    // MODIFIES: logsMenu
+    // MODIFIES: this, logsMenu
     // EFFECTS: creates radio buttons to choose whether to add a pb entry, along with corresponding fields.
     private void addPbSelector(JPanel logsMenu) {
         addLabel(logsMenu, "Is this a personal best entry?");
@@ -135,6 +141,7 @@ public class HomePage extends Page implements ActionListener {
         pbWeightLabel.setVisible(false);
     }
 
+    // EFFECTS: Returns a panel with fields and buttons to add a goal.
     private JPanel createGoalsMenu() {
         JPanel goalsMenu = new JPanel(new GridLayout(0, 2, 20, 10));
         addLabel(goalsMenu, "Name");
@@ -149,13 +156,11 @@ public class HomePage extends Page implements ActionListener {
         JTextArea descriptionField = new JTextArea();
         goalsMenu.add(descriptionField);
         addConfirmButton(goalsMenu, nameField, dateField, exerciseField, weightField, descriptionField);
-        message = addLabel(goalsMenu, "Added successfully!", 15f);
-        message.setVisible(false);  // Initially hidden success message
         return goalsMenu;
     }
 
     // MODIFIES: goalsMenu
-    // EFFECTS: Adds a confirm button to the goals menu
+    // EFFECTS: Adds a confirm button to the goals menu, which displays popup on success.
     private void addConfirmButton(JPanel goalsMenu, JTextField nameField, JTextField dateField,
                                   JTextField exerciseField, JTextField weightField, JTextArea descriptionField) {
         JButton confirmButton = new JButton("Add Goal");
@@ -163,12 +168,15 @@ public class HomePage extends Page implements ActionListener {
         confirmButton.addActionListener(e -> {
             gui.addGoal(nameField.getText(), dateField.getText(), exerciseField.getText(),
                     weightField.getText(), descriptionField.getText());
-            message.setVisible(true);
             clearFields(goalsMenu);
+            JOptionPane.showMessageDialog(this, "Goal added successfully!",
+                    "Success", JOptionPane.INFORMATION_MESSAGE, LoggerGUI.DUMBBELL);
         });
         goalsMenu.add(confirmButton);
     }
 
+    // MODIFIES: this
+    // EFFECTS: Specifies action listeners for some of the buttons on this page.
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Switch to logs tab")) {
