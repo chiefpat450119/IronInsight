@@ -1,6 +1,5 @@
-package ui;
+package model;
 
-import model.*;
 import persistence.*;
 
 import java.io.FileNotFoundException;
@@ -22,6 +21,7 @@ public class LogManager {
         logs = new ArrayList<>();
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
+        EventLog.getInstance().logEvent(new Event("Training logs initiated."));
     }
 
     // EFFECTS: Static method that returns the detailed breakdown of a given log entry.
@@ -37,6 +37,9 @@ public class LogManager {
             PersonalBest p = (PersonalBest) selectedEntry;
             return p.summary() + " on " + p.getDate().toString();
         }
+        EventLog.getInstance().logEvent(new Event("Details for log entry named " + selectedEntry.getName()
+                + " accessed."));
+
         return "";
     }
 
@@ -47,6 +50,7 @@ public class LogManager {
             record.addExercise(e);
         }
         logs.add(record);
+        EventLog.getInstance().logEvent(new Event("Record named " + name + " added to logs."));
     }
 
     // EFFECTS: Adds a goal to the logs list based on given parameters.
@@ -54,11 +58,13 @@ public class LogManager {
         Goal goal = new Goal(LocalDate.now(), name, description);
         goal.addTarget(date, weight, exerciseName);
         logs.add(goal);
+        EventLog.getInstance().logEvent(new Event("Goal named " + name + " added to logs."));
     }
 
     // EFFECTS: Adds a personal best entry to the logs list based on given parameters.
     public void addPersonalBest(String name, int weight) {
         logs.add(new PersonalBest(LocalDate.now(), name, weight));
+        EventLog.getInstance().logEvent(new Event("Personal best named  " + name + " added to logs."));
     }
 
     // EFFECTS: saves the training logs to file
@@ -67,9 +73,9 @@ public class LogManager {
             jsonWriter.open();
             jsonWriter.write(this.logs);
             jsonWriter.close();
-            System.out.println("Saved training logs to " + JSON_STORE);
+            EventLog.getInstance().logEvent(new Event("Saved " + logs.size() + " log entries to file."));
         } catch (FileNotFoundException e) {
-            System.out.println("Unable to write to file: " + JSON_STORE);
+            EventLog.getInstance().logEvent(new Event("File not found"));
         }
     }
 
@@ -78,7 +84,7 @@ public class LogManager {
     public void loadLogger() {
         try {
             this.logs = jsonReader.read();
-            System.out.println("Loaded training logs from " + JSON_STORE);
+            EventLog.getInstance().logEvent(new Event("Loaded " + logs.size() + " log entries from file."));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -98,6 +104,7 @@ public class LogManager {
                 result.add(goal);
             }
         }
+        EventLog.getInstance().logEvent(new Event("Goals retrieved"));
         return result;
     }
 
@@ -109,6 +116,7 @@ public class LogManager {
                 result.add(e);
             }
         }
+        EventLog.getInstance().logEvent(new Event("All logs on " + date.toString() + " retrieved"));
         return result;
     }
 

@@ -1,133 +1,98 @@
 {"logs": [
     {
-        "date": "2024-03-27",
-        "exercises": [{
-            "reps": 1,
-            "rpe": 10,
-            "name": "dksfjglkd",
-            "weight": 60
-        }],
-        "name": "lskadjfljsdf",
-        "description": "lskjglkjsdfg",
-        "completed": true,
-        "type": "goal",
-        "target date": "2025-03-03"
-    },
-    {
-        "date": "2024-03-28",
-        "exercises": [{
-            "reps": 1,
-            "rpe": 10,
-            "name": "alsdjklf",
-            "weight": 100
-        }],
-        "name": "asldkjfld",
-        "description": "asjlgjlkasd",
-        "completed": true,
-        "type": "goal",
-        "target date": "2026-06-06"
-    },
-    {
-        "date": "2024-03-28",
-        "exercises": [{
-            "reps": 1,
-            "rpe": 10,
-            "name": "Patrick's Log Entry",
-            "weight": 225
-        }],
-        "name": "Patrick's Log Entry",
-        "pb weight": 225,
-        "type": "pb"
-    },
-    {
-        "date": "2024-03-28",
+        "date": "2024-03-31",
         "exercises": [
             {
                 "reps": 8,
-                "rpe": 5,
-                "name": "Deadlift",
-                "weight": 135
+                "rpe": 8,
+                "name": "Bench Press",
+                "weight": 125
             },
             {
-                "reps": 100,
-                "rpe": 5,
-                "name": "Bench press",
-                "weight": 200
+                "reps": 9,
+                "rpe": 7,
+                "name": "Incline Dumbbell Press",
+                "weight": 45
+            },
+            {
+                "reps": 15,
+                "rpe": 8,
+                "name": "Dumbbell Lateral Raise",
+                "weight": 20
+            },
+            {
+                "reps": 10,
+                "rpe": 6,
+                "name": "Cable External Rotation",
+                "weight": 10
+            },
+            {
+                "reps": 11,
+                "rpe": 10,
+                "name": "Tricep Pushdown",
+                "weight": 20
             }
         ],
-        "name": "patrick's workout",
+        "name": "Push Workout",
         "type": "record"
     },
     {
-        "date": "2024-03-28",
+        "date": "2024-03-31",
         "exercises": [{
             "reps": 1,
             "rpe": 10,
             "name": "Bench Press",
-            "weight": 100
+            "weight": 155
         }],
-        "name": "Patrick's Goal",
-        "description": "Epic",
+        "name": "New Bench Target",
+        "description": "1 rep max of 155lbs on bench (1x bodyweight).",
         "completed": true,
         "type": "goal",
-        "target date": "2024-03-24"
+        "target date": "2024-04-05"
     },
     {
-        "date": "2024-03-28",
+        "date": "2024-03-31",
         "exercises": [{
             "reps": 1,
             "rpe": 10,
-            "name": "Bench Press",
-            "weight": 100
+            "name": "Squat PR",
+            "weight": 185
         }],
-        "name": "asdflajsdlkflasjdfjljsldjlajdf",
-        "description": "sadljlkjkgjfgfg",
-        "completed": false,
-        "type": "goal",
-        "target date": "2024-03-24"
+        "name": "Squat PR",
+        "pb weight": 185,
+        "type": "pb"
     },
     {
-        "date": "2024-03-28",
+        "date": "2024-03-31",
         "exercises": [
             {
-                "reps": 10,
-                "rpe": 10,
-                "name": "ksldajfl",
-                "weight": 500
+                "reps": 8,
+                "rpe": 9,
+                "name": "Single Arm Lat Pulldown",
+                "weight": 50
             },
             {
                 "reps": 10,
-                "rpe": 10,
-                "name": "dsfadf",
-                "weight": 200
+                "rpe": 7,
+                "name": "Seated Row",
+                "weight": 100
             }
         ],
-        "name": "asjdljjlkads",
+        "name": "Pull Workout",
         "type": "record"
     },
     {
-        "date": "2024-03-28",
-        "exercises": [{
-            "reps": 8,
-            "rpe": 5,
-            "name": "Squat",
-            "weight": 135
-        }],
-        "name": "Patrick's Log Entry",
-        "type": "record"
-    },
-    {
-        "date": "2024-03-28",
+        "date": "2024-03-31",
         "exercises": [{
             "reps": 1,
             "rpe": 10,
-            "name": "Bench Press",
-            "weight": 20000
+            "name": "Lat Pulldown",
+            "weight": 150
         }],
-        "name": "new goal",
-        "description": "ksjlkfjajdsf",
+        "name": "Lat Pulldown Target",
+        "description": "Aiming to hit a 1 rep max",
         "completed": false,
         "type": "goal",
-        "target date": "2024-03-24"
+        "target date": "2024-04-20"
     }
 ]}

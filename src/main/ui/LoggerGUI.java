@@ -1,11 +1,12 @@
 package ui;
 
-import model.Exercise;
-import model.Goal;
-import model.LogEntry;
+import model.*;
+import model.Event;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -67,6 +68,15 @@ public class LoggerGUI extends JFrame {
         setSize(new Dimension(WIDTH, HEIGHT));
         setVisible(true);
         setResizable(false);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                for (Event event: EventLog.getInstance()) {
+                    System.out.println(event.toString());
+                }
+                System.exit(0);
+            }
+        });
     }
 
     // MODIFIES: this

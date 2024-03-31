@@ -15,7 +15,7 @@ public class Record extends LogEntry {
     // EFFECTS: Instantiates a strength training log entry with empty list of exercises
     public Record(LocalDate date, String name) {
         super(date, name);
-        this.exercises = new ArrayList<Exercise>();
+        this.exercises = new ArrayList<>();
     }
 
     // REQUIRES: Exercise is not already in exercises
@@ -23,6 +23,8 @@ public class Record extends LogEntry {
     // EFFECTS: Adds the given exercise to the end of the record's list of exercises
     public void addExercise(Exercise e) {
         exercises.add(e);
+        EventLog.getInstance().logEvent(new Event("Exercise named " + e.getName() + " added to "
+                + name));
     }
 
     // EFFECTS: returns a string summary of the log entry with exercise summaries.

@@ -1,6 +1,7 @@
 package ui;
 
 import model.LogEntry;
+import model.LogManager;
 
 import javax.swing.*;
 import java.awt.*;

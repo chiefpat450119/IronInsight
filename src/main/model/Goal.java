@@ -25,6 +25,8 @@ public class Goal extends Record {
     // with given name.
     public void addTarget(LocalDate targetDate, int targetWeight, String exerciseName) {
         this.targetDate = targetDate;
+        EventLog.getInstance().logEvent(new Event("Target date for " + name + " set as "
+                + targetDate.toString()));
         addExercise(new Exercise(exerciseName, targetWeight, 1, 10));
     }
 
@@ -44,6 +46,7 @@ public class Goal extends Record {
     // EFFECTS: sets completed to true
     public void setCompleted() {
         completed = true;
+        EventLog.getInstance().logEvent(new Event("Goal named " + name + " marked as completed."));
     }
 
     @Override

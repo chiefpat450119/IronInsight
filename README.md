@@ -33,3 +33,29 @@ which creates an image popup.
 "save logs to file."
 - You can reload the state of my application by clicking on "File" in the menu bar at the top, and selecting 
 "load logs from file."
+
+## Phase 4: Task 2
+Sun Mar 31 11:59:09 PDT 2024  
+Training logs initiated.  
+Sun Mar 31 11:59:09 PDT 2024  
+Goals retrieved  
+Sun Mar 31 11:59:15 PDT 2024  
+Loaded 3 log entries from file.  
+Sun Mar 31 12:00:03 PDT 2024  
+Exercise named Single Arm Lat Pulldown added to Pull Workout  
+Sun Mar 31 12:00:03 PDT 2024  
+Exercise named Seated Row added to Pull Workout  
+Sun Mar 31 12:00:03 PDT 2024  
+Record named Pull Workout added to logs.  
+Sun Mar 31 12:00:59 PDT 2024  
+Target date for Lat Pulldown Target set as 2024-04-20  
+Sun Mar 31 12:00:59 PDT 2024  
+Exercise named Lat Pulldown added to Lat Pulldown Target  
+Sun Mar 31 12:00:59 PDT 2024  
+Goal named Lat Pulldown Target added to logs.  
+Sun Mar 31 12:01:10 PDT 2024  
+Goals retrieved  
+Sun Mar 31 12:01:16 PDT 2024  
+Goal named New Bench Target marked as completed.  
+Sun Mar 31 12:01:19 PDT 2024  
+Saved 5 log entries to file.

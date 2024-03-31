@@ -1,6 +1,7 @@
 package ui;
 
 import model.Exercise;
+import model.LogManager;
 
 import javax.swing.*;
 import java.awt.*;
