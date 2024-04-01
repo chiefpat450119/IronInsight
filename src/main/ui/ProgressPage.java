@@ -71,7 +71,7 @@ public class ProgressPage extends Page {
 
     // Represents a list model which displays the name string of all log entries in its logs.
     private static class LogListModel extends AbstractListModel<String> {
-        private java.util.List<LogEntry> logs;
+        private List<LogEntry> logs;
 
         public LogListModel(List<LogEntry> logs) {
             this.logs = logs;
