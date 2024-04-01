@@ -20,7 +20,7 @@ public class Record extends LogEntry {
 
     // REQUIRES: Exercise is not already in exercises
     // MODIFIES: this
-    // EFFECTS: Adds the given exercise to the end of the record's list of exercises
+    // EFFECTS: Adds the given exercise to the end of the record's list of exercises and records event
     public void addExercise(Exercise e) {
         exercises.add(e);
         EventLog.getInstance().logEvent(new Event("Exercise named " + e.getName() + " added to "

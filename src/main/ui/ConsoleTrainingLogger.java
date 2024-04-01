@@ -15,7 +15,7 @@ import java.io.IOException;
 // Logs can be accessed or summaries generated based on user input. Can be saved and loaded.
 // ATTRIBUTION: Structure of this class and the user input implementation are sourced from the TellerApp project.
 // Data persistence implementation is based on JsonSerializationDemo.
-public class TrainingLogger {
+public class ConsoleTrainingLogger {
     private static final String JSON_STORE = "./data/logs.json";
     private List<LogEntry> logs;
     private Scanner input;
@@ -23,7 +23,7 @@ public class TrainingLogger {
     private JsonReader jsonReader;
 
     // EFFECTS: Runs the logger application
-    public TrainingLogger() {
+    public ConsoleTrainingLogger() {
         runLogger();
     }
 
@@ -232,6 +232,6 @@ public class TrainingLogger {
 
     // For Testing
     public static void main(String[] args) {
-        new TrainingLogger();
+        new ConsoleTrainingLogger();
     }
 }

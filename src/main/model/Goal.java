@@ -43,7 +43,7 @@ public class Goal extends Record {
     }
 
     // MODIFIES: this
-    // EFFECTS: sets completed to true
+    // EFFECTS: sets completed to true and records event
     public void setCompleted() {
         completed = true;
         EventLog.getInstance().logEvent(new Event("Goal named " + name + " marked as completed."));
@@ -60,6 +60,7 @@ public class Goal extends Record {
         return json;
     }
 
+    // EFFECTS: returns true if this goal is completed
     public boolean isCompleted() {
         return completed;
     }

@@ -59,3 +59,11 @@ Sun Mar 31 12:01:16 PDT 2024
 Goal named New Bench Target marked as completed.  
 Sun Mar 31 12:01:19 PDT 2024  
 Saved 5 log entries to file.
+
+## Phase 4: Task 3
+Add a section at the end of your README.md file entitled "Phase 4: Task 3".  Reflect on the design presented in your UML class diagram.  
+If you had more time to work on the project, what refactoring might you use to improve your design?  
+(Everyone can find something. It's fine if it's a tradeoff and not a strict improvement!) 
+In 1-2 paragraphs in this section of your README, describe the refactoring and your reasons for it.  
+You do not need to perform the refactoring - just identify the changes you would make if you had more time.  Keep in mind that refactoring does not mean adding more features to your application.
+

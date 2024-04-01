@@ -16,7 +16,7 @@ public class LogManager {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
-    // EFFECTS: Instantiates a log manager with no logs and a writer and reader for JSON.
+    // EFFECTS: Instantiates a log manager with no logs and a writer and reader for JSON and records event
     public LogManager() {
         logs = new ArrayList<>();
         jsonWriter = new JsonWriter(JSON_STORE);
@@ -24,7 +24,7 @@ public class LogManager {
         EventLog.getInstance().logEvent(new Event("Training logs initiated."));
     }
 
-    // EFFECTS: Static method that returns the detailed breakdown of a given log entry.
+    // EFFECTS: Static method that returns the detailed breakdown of a given log entry and records event
     public static String getDetails(LogEntry selectedEntry) {
         if (selectedEntry.getClass().equals(Goal.class)) {
             Goal g = (Goal) selectedEntry;
@@ -43,7 +43,7 @@ public class LogManager {
         return "";
     }
 
-    // EFFECTS: Adds a log entry to the logs list based on given parameters.
+    // EFFECTS: Adds a log entry to the logs list based on given parameters and records event
     public void addLogEntry(String name, List<Exercise> exercises) {
         Record record = new Record(LocalDate.now(), name);
         for (Exercise e: exercises) {
@@ -53,7 +53,7 @@ public class LogManager {
         EventLog.getInstance().logEvent(new Event("Record named " + name + " added to logs."));
     }
 
-    // EFFECTS: Adds a goal to the logs list based on given parameters.
+    // EFFECTS: Adds a goal to the logs list based on given parameters and records event
     public void addGoal(String name, LocalDate date, String exerciseName, int weight, String description) {
         Goal goal = new Goal(LocalDate.now(), name, description);
         goal.addTarget(date, weight, exerciseName);
@@ -61,13 +61,13 @@ public class LogManager {
         EventLog.getInstance().logEvent(new Event("Goal named " + name + " added to logs."));
     }
 
-    // EFFECTS: Adds a personal best entry to the logs list based on given parameters.
+    // EFFECTS: Adds a personal best entry to the logs list based on given parameters and records event
     public void addPersonalBest(String name, int weight) {
         logs.add(new PersonalBest(LocalDate.now(), name, weight));
         EventLog.getInstance().logEvent(new Event("Personal best named  " + name + " added to logs."));
     }
 
-    // EFFECTS: saves the training logs to file
+    // EFFECTS: saves the training logs to file and records event
     public void saveLogger() {
         try {
             jsonWriter.open();
@@ -80,7 +80,7 @@ public class LogManager {
     }
 
     // MODIFIES: this
-    // EFFECTS: loads training logs from file
+    // EFFECTS: loads training logs from file and records event
     public void loadLogger() {
         try {
             this.logs = jsonReader.read();
@@ -95,7 +95,7 @@ public class LogManager {
         return new Exercise(name, Integer.parseInt(weight), Integer.parseInt(reps), Integer.parseInt(rpe));
     }
 
-    // EFFECTS: Returns a list of all log entries of type Goal in the logs list.
+    // EFFECTS: Returns a list of all log entries of type Goal in the logs list and records event
     public List<Goal> getGoals() {
         List<Goal> result = new ArrayList<>();
         for (LogEntry l: logs) {
@@ -108,7 +108,7 @@ public class LogManager {
         return result;
     }
 
-    // EFFECTS: Returns all log entries in the logs list matching given date.
+    // EFFECTS: Returns all log entries in the logs list matching given date and records event
     public List<LogEntry> getLogsByDate(LocalDate date) {
         List<LogEntry> result = new ArrayList<>();
         for (LogEntry e : logs) {
