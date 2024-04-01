@@ -61,9 +61,24 @@ Sun Mar 31 12:01:19 PDT 2024
 Saved 5 log entries to file.
 
 ## Phase 4: Task 3
-Add a section at the end of your README.md file entitled "Phase 4: Task 3".  Reflect on the design presented in your UML class diagram.  
-If you had more time to work on the project, what refactoring might you use to improve your design?  
-(Everyone can find something. It's fine if it's a tradeoff and not a strict improvement!) 
-In 1-2 paragraphs in this section of your README, describe the refactoring and your reasons for it.  
-You do not need to perform the refactoring - just identify the changes you would make if you had more time.  Keep in mind that refactoring does not mean adding more features to your application.
-
+One refactoring I could do that would decrease the coupling between the UI 
+package and the model package would be to remove the association between Page
+and LoggerGUI. This was originally designed so that instances of the 3 subclasses (Home, Progress, Goals)
+could call methods on LoggerGUI which then called methods on LogManager to modify its logs. However, 
+there is no need for Page and its subclasses to know about LoggerGUI, since
+all the functionality they need is in LogManager (e.g. adding, retrieving, marking as completed etc.)  
+  
+I could instead make Page have a field of LogManager, and make LogManager a singleton
+so that there is just one instance that is accessed by Page and its subclasses. The Page constructor would
+then call getInstance() on LogManager and store it as a protected field. I could then
+also remove the association between LoggerGUI and LogManager, and any methods in LoggerGUI that 
+operate on LogManager. This would increase the cohesion of LoggerGUI as well. Hence, the three subtypes of Page
+could just operate on LogManager directly, simplifying the application.
+  
+Another refactoring that would make the hierarchy in the UI package more logical would be to have 
+Goal and PersonalBest extend **LogEntry** instead of **Record**. This is because they don't really make sense
+as subclasses of Record and I only made it that way so that I could inherit the functionality relating to 
+adding exercises from the Record class. However, PersonalBest should only have one instance of Exercise
+while Record can have arbitrarily many. This violates the LSP since PersonalBest has a narrower precondition than 
+its superclass Record. Therefore, it would make more sense to have Record, PersonalBest, and Goal all extend 
+LogEntry. Maybe record could also be renamed to TrainingRecord or Workout to make it more understandable.
